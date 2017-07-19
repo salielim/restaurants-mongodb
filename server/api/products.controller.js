@@ -46,8 +46,8 @@ var retrieveAll = function () {
 // Retrieve one product using objectID - GET /api/products/:id
 var retrieveOne = function () {
     return function (req, res) {
-        // console.log("Route: GET /api/products/:id");
-        // console.log("Object ID to retrieve: " + req.params.id);
+        console.log("Route: GET /api/products/:id");
+        console.log("Object ID to retrieve: " + req.params.id);
         // Convert to object ID type
         var param = new mongo.ObjectID(req.params.id);
         // Get the database object
@@ -83,7 +83,7 @@ var retrieveOne = function () {
             });
 
         } catch (err) {
-            console.log("Runtime errors for retrieve all: " + err);
+            console.log("Runtime errors for retrieve one: " + err);
             res.status(500).send(err);
         }
     }
@@ -92,7 +92,7 @@ var retrieveOne = function () {
 // Insert one product (Pass the product document using JSON body) - POST /api/products
 var insertOne = function () {
     return function (req, res) {
-        // console.log("Route: POST /api/products");
+        console.log("Route: POST /api/products");
         // Get the database object
         const db = req.app.locals.db;
         // Insert the new product (product JSON info in req.body)
@@ -114,10 +114,10 @@ var insertOne = function () {
 
                 console.log("New product: ", req.body);
 
-                var query = { "_id": param };
+                var doc = JSON.parse(req.body.newProduct); 
                 var options = {};
 
-                collection.insertOne(query, options)
+                collection.insertOne(doc, options)
                     .then(function (results) {
                         console.log(results);
                         res.json(results);
@@ -126,14 +126,13 @@ var insertOne = function () {
                         console.log("Query to Array Error: " + err);
                         res.status(500).send(err)
                     })
-            });
-
-        } catch (err) {
-            console.log("Runtime errors for retrieve all: " + err);
-            res.status(500).send(err);
+                })
+            } catch (err) {
+                console.log("Runtime errors for insert: " + err);
+                res.status(500).send(err);
+            }
         }
-    }
-};
+    };
 
 // Update one product using objectID (set parameters in JSON body) - PUT /api/products
 var updateOne = function () {
@@ -218,8 +217,6 @@ var updateGrade = function () {
                     res.status(500).send(err);
                 };
 
-                console.log("New product: ", req.body);
-
                 var filter = { "_id": param };
                 var update = { $push: { 'grades': doc } };
                 var options = { upsert: false, returnOriginal: false };
@@ -228,14 +225,13 @@ var updateGrade = function () {
                     .then(function (results) {
                         console.log(results);
                         newGrade = result.value.grades[result.value.grades.length - 1];
-                        res.json(results);
+                        res.json(newGrade);
                     })
                     .catch(function (err) {
                         console.log("Error updating: " + err);
                         res.status(500).send(err)
                     })
-            });
-
+            })
         } catch (err) {
             console.log("Runtime errors for retrieve all: " + err);
             res.status(500).send(err);
