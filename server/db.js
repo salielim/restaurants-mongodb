@@ -7,8 +7,8 @@ module.exports = function(app) {
     var MongoClient = require('mongodb').MongoClient;
     // MongoDB Connection URL
     // var url = config.MONGO_URI;
-    var url = config.DATABASE_URI;
-    // var url = "mongodb://localhost/michelin";
+    // var url = config.DATABASE_URI;
+    var url = "mongodb://localhost/michelin";
     console.log("url: " + url);
     // Create the database connection
     MongoClient.connect(url, {  

@@ -18,14 +18,14 @@ var retrieveAll = function () {
 
         // Enter your codes here
         try {
-            db.collection(config.COLL_MAIN, function(err, collection) {
+            db.collection(config.COLL_MAIN, function (err, collection) {
                 if (err) {
                     res.status(500).send(err);
                 };
 
                 var query = {};
                 var projection = { name: 1, cuisine: 1, restaurant_id: 1 }; // "address_street": ""
-                
+
                 collection.find(query).project(projection).limit(config.LIMIT).toArray()
                     .then(function (results) {
                         console.log(results);
@@ -63,14 +63,14 @@ var retrieveOne = function () {
 
         // Enter your codes here
         try {
-            db.collection(config.COLL_MAIN, function(err, collection) {
+            db.collection(config.COLL_MAIN, function (err, collection) {
                 if (err) {
                     res.status(500).send(err);
                 };
 
-                var query = {"_id": param };
+                var query = { "_id": param };
                 var options = {};
-                
+
                 collection.findOne(query, options)
                     .then(function (results) {
                         console.log(results);
@@ -107,16 +107,16 @@ var insertOne = function () {
 
         // Enter your codes here
         try {
-            db.collection(config.COLL_MAIN, function(err, collection) {
+            db.collection(config.COLL_MAIN, function (err, collection) {
                 if (err) {
                     res.status(500).send(err);
                 };
 
                 console.log("New product: ", req.body);
 
-                var query = {"_id": param };
+                var query = { "_id": param };
                 var options = {};
-                
+
                 collection.insertOne(query, options)
                     .then(function (results) {
                         console.log(results);
@@ -159,17 +159,17 @@ var updateOne = function () {
 
         // Enter your codes here
         try {
-            db.collection(config.COLL_MAIN, function(err, collection) {
+            db.collection(config.COLL_MAIN, function (err, collection) {
                 if (err) {
                     res.status(500).send(err);
                 };
 
                 console.log("New product: ", req.body);
-                
-                var filter = {"_id": param };
-                var update = {$set: doc };
-                var options = {upsert: false };
-                
+
+                var filter = { "_id": param };
+                var update = { $set: doc };
+                var options = { upsert: false };
+
                 collection.updateOne(filter, update, options)
                     .then(function (results) {
                         console.log(results);
@@ -212,7 +212,34 @@ var updateGrade = function () {
         // Hint: Use "findOneAndUpdate" method
 
         // Enter your codes here
-        
+        try {
+            db.collection(config.COLL_MAIN, function (err, collection) {
+                if (err) {
+                    res.status(500).send(err);
+                };
+
+                console.log("New product: ", req.body);
+
+                var filter = { "_id": param };
+                var update = { $push: { 'grades': doc } };
+                var options = { upsert: false, returnOriginal: false };
+
+                collection.findOneAndUpdate(filter, update, options)
+                    .then(function (results) {
+                        console.log(results);
+                        newGrade = result.value.grades[result.value.grades.length - 1];
+                        res.json(results);
+                    })
+                    .catch(function (err) {
+                        console.log("Error updating: " + err);
+                        res.status(500).send(err)
+                    })
+            });
+
+        } catch (err) {
+            console.log("Runtime errors for retrieve all: " + err);
+            res.status(500).send(err);
+        }
     }
 };
 
@@ -236,54 +263,87 @@ var deleteOne = function () {
         // 3. Record will be deleted
 
         // Enter your codes here
-
-    }
-};
-
-// Retrieve list of product types - GET /api/product/types
-var retrieveTypes = function () {
-    return function (req, res) {
-        // console.log("Route: GET /api/products/types");
-        // Get the database object
-        const db = req.app.locals.db;
-        try {
-            db.collection(config.COLL_MAIN, function (err, collection) {
-                // Hanlde collection err
-                if (err) {
+        var deleteOne = function () {
+            return function (req, res) {
+                console.log("Route: DELETE /api/products/:id");
+                console.log("Object ID to delete: " + req.params.id);
+                // Convert to object ID type
+                var param = new mongo.ObjectID(req.params.id);
+                // Get the database object
+                const db = req.app.locals.db;
+                try {
+                    db.collection(config.COLL_MAIN, function (err, collection) {
+                        // Hanlde collection err
+                        if (err) {
+                            res.status(500).send(err);
+                        };
+                        // Filter Operator and Options
+                        var filter = { "_id": param };
+                        var options = {};
+                        // Delete one product
+                        collection.deleteOne(filter, options)
+                            .then(function (result) {
+                                console.log(result.result);
+                                res.json(result);
+                            })
+                            .catch(function (err) {
+                                console.log("Error deleting: " + err);
+                                res.status(500).send(err);
+                            })
+                    })
+                } catch (err) {
+                    console.log("Runtime errors for delete: " + err);
                     res.status(500).send(err);
-                };
-                // Field to find distinct value
-                var key = "cuisine";
-                // Query Operator
-                var query = {};
-                // Options
-                var options = {};
-                // Retrieve distinct types
-                collection.distinct(key, query, options)
-                    .then(function (results) {
-                        // console.log(results.sort());
-                        res.json(results.sort());
-                    })
-                    .catch(function (err) {
-                        console.log("Error retrieving distinct types: " + err);
-                        res.status(500).send(err);
-                    })
-            })
-        } catch (err) {
-            console.log("Runtime errors for retrieve distinct types: " + err);
-            res.status(500).send(err);
-        }
+                }
+            }
+        };
     }
 };
 
-// Export route handlers
-module.exports = {
-    retrieveAll: retrieveAll(),
-    retrieveOne: retrieveOne(),
-    insertOne: insertOne(),
-    updateOne: updateOne(),
-    deleteOne: deleteOne(),
-    retrieveTypes: retrieveTypes(),
-    updateGrade: updateGrade()
-};
+        // Retrieve list of product types - GET /api/product/types
+        var retrieveTypes = function () {
+            return function (req, res) {
+                // console.log("Route: GET /api/products/types");
+                // Get the database object
+                const db = req.app.locals.db;
+                try {
+                    db.collection(config.COLL_MAIN, function (err, collection) {
+                        // Hanlde collection err
+                        if (err) {
+                            res.status(500).send(err);
+                        };
+                        // Field to find distinct value
+                        var key = "cuisine";
+                        // Query Operator
+                        var query = {};
+                        // Options
+                        var options = {};
+                        // Retrieve distinct types
+                        collection.distinct(key, query, options)
+                            .then(function (results) {
+                                // console.log(results.sort());
+                                res.json(results.sort());
+                            })
+                            .catch(function (err) {
+                                console.log("Error retrieving distinct types: " + err);
+                                res.status(500).send(err);
+                            })
+                    })
+                } catch (err) {
+                    console.log("Runtime errors for retrieve distinct types: " + err);
+                    res.status(500).send(err);
+                }
+            }
+        };
+
+        // Export route handlers
+        module.exports = {
+            retrieveAll: retrieveAll(),
+            retrieveOne: retrieveOne(),
+            insertOne: insertOne(),
+            updateOne: updateOne(),
+            deleteOne: deleteOne(),
+            retrieveTypes: retrieveTypes(),
+            updateGrade: updateGrade()
+        };
 
