@@ -1,0 +1,27 @@
+{
+  "name": "day25_demo_mongodb",
+  "description": "Stackup MongoDB Case Model",
+  "main": "server/app.js",
+  "authors": [
+    "Pang Poh Chye"
+  ],
+  "license": "ISC",
+  "keywords": [
+    "mongodb"
+  ],
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "client/bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.7",
+    "angular": "angularjs#^1.6.5",
+    "angular-ui-router": "^1.0.5",
+    "font-awesome": "^4.7.0"
+  }
+}

@@ -1,0 +1,70 @@
+<div class="row">
+    <form name="CreateProductForm" ng-submit="ctrl.addProduct()" novalidate>
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h2 class="panel-title">Restaurant Info</h2>
+                </div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label for="restaurantName">Restaurant Name: </label>
+                        <input type="text" class="form-control" name="restaurantName" id="restaurantName" placeholder="Restaurant Name"
+                            required ng-model="ctrl.newProduct.name">
+                    </div>
+                    <div class="form-group">
+                        <label for="restaurantId">Restaurant ID: </label>
+                        <input type="text" class="form-control" name="restaurantId" id="restaurantId" placeholder="Restaurant ID"
+                                required ng-model="ctrl.newProduct.restaurant_id">
+                    </div>
+                    <div class="form-group">
+                        <label for="cuisine">Cuisine: </label>
+                        <input type="text" class="form-control" name="cuisine" id="cuisine" placeholder="Cuisine"
+                                required ng-model="ctrl.newProduct.cuisine">
+                    </div>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary" title="Submit" ng-disabled="CreateProductForm.$invalid">Create</button>
+            <button type="button" class="btn btn-default" ng-click="ctrl.goBack()">Cancel</button>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h2 class="panel-title">Restaurant Address</h2>
+                </div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label for="building">Building: </label>
+                        <input type="text" class="form-control" name="building" id="building"
+                                required ng-model="ctrl.newProduct.address.building">
+                    </div>
+                    <div class="form-group">
+                        <label for="street">Street: </label>
+                        <input type="text" class="form-control" name="street" id="street"
+                                required ng-model="ctrl.newProduct.address.street">
+                    </div>
+                    <div class="form-group">
+                        <label for="zipcode">Zipcode: </label>
+                        <input type="text" class="form-control" name="zipcode" id="zipcode"
+                                required ng-model="ctrl.newProduct.address.zipcode">
+                    </div>
+                    <div class="form-group">
+                        <label for="lng">Longitude: </label>
+                        <input type="number" class="form-control" name="lng" id="lng" step="any"
+                                required ng-model="ctrl.coord.lng">
+                    </div>
+                    <div class="form-group">
+                        <label for="lat">Latitude: </label>
+                        <input type="number" class="form-control" name="lat" id="lat" step="any"
+                                required ng-model="ctrl.coord.lat">
+                    </div>
+                    <div class="form-group">
+                        <label for="borough">Borough: </label>
+                        <input type="text" class="form-control" name="borough" id="borough"
+                                required ng-model="ctrl.newProduct.borough">
+                    </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+

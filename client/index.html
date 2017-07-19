@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--<meta http-equiv="X-UA-Compatible" content="ie=edge">-->
+    <title>Shopping</title>
+    <link rel="stylesheet" href="./bower_components/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="./bower_components/font-awesome/css/font-awesome.css">
+</head>
+<body ng-app="Shopping">
+    
+    <!-- Sets navigation bar classes -->
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <!-- Defines navigation bar button -->
+                <button type="button" class="navbar-toggle collapsed"
+                        data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
+                        aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Restaurants</a>
+            </div>
+
+            <!-- Collects nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li class="nav-item active">
+                        <a href="#!/home"
+                        data-target="#home"
+                        data-toggle="tab">
+                            Home
+                            <span class="sr-only">(home)</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#!/products"
+                        data-target="#products"
+                        data-toggle="tab">
+                            Search
+                            <span class="sr-only">(search)</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#!/register"
+                        data-target="#register"
+                        data-toggle="tab">
+                            Add Product
+                            <span class="sr-only">(register)</span>
+                        </a>
+                    </li>
+                    <!--<li class="nav-item">
+                        <a href="#!/edit"
+                        data-target="#edit"
+                        data-toggle="tab">
+                            Edit
+                            <span class="sr-only">(edit)</span>
+                        </a>
+                    </li>-->
+                </ul>
+
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+    </nav>
+
+    <!-- Tab panes -->
+    <div class="container tab-content">
+        <ui-view></ui-view>
+    </div>
+
+</body>
+    <script src="./bower_components/jquery/dist/jquery.js"></script>    
+    <script src="./bower_components/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="./bower_components/angular/angular.js"></script>
+    <script src="./bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+    <script src="./lib/ui-bootstrap-custom-2.5.0.min.js"></script>
+    <script src="./lib/ui-bootstrap-custom-tpls-2.5.0.min.js"></script>
+    <script src="./app/app.js"></script>
+    <script src="./app/app-route-config.js"></script>
+    <script src="./app/main/home-controller.js"></script>
+    <script src="./app/products/search/products-controller.js"></script>
+    <script src="./app/products/add/products-add-controller.js"></script>
+    <script src="./app/products/detail/products-detail-controller.js"></script>
+    <script src="./app/products/detail/add-grade-modal-controller.js"></script>
+    <script src="./app/products/update/products-update-controller.js"></script>
+    <script src="./app/admin/admin-controller.js"></script>
+    <script src="./app/services/products-services.js"></script>
+    <script src="./app/services/common/common-services.js"></script>
+</html>

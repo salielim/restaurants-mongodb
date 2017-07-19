@@ -1,0 +1,20 @@
+{
+  "name": "day25_demo_mongodb",
+  "version": "1.0.0",
+  "description": "Stackup MongoDB Case Model",
+  "main": "server/app.js",
+  "scripts": {
+    "start": "node server/app.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "postinstall": "./node_modules/bower/bin/bower install"
+  },
+  "author": "Pang Poh Chye",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "bower": "*",
+    "express": "^4.15.3",
+    "mongodb": "^2.2.29",
+    "path": "^0.12.7"
+  }
+}

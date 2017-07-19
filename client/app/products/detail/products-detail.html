@@ -1,0 +1,96 @@
+<div class="container">
+
+    <div id="banner" class="page-header">
+        <div class="row">
+            <div class="col-lg-6"></div>
+            <h1>
+                {{ctrl.product.name}}
+            <small>{{ctrl.product.cuisine}}</small>
+            </h1>
+        </div>
+    </div>
+
+    <div class="col-xs-12 col-md-8">
+        <div class="row">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h2 class="panel-title">Address</h2>
+                </div>
+                <div class="panel-body">
+                    <p>Building: {{ctrl.product.address.building}}</p>
+                    <p>Street: {{ctrl.product.address.street}}</p>
+                    <p>Zipcode: {{ctrl.product.address.zipcode}}</p>
+                    <p>Borough: {{ctrl.product.borough}}</p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h2 class="panel-title">Grading</h2>
+                </div>
+                <div class="panel-body">
+                    <div ng-repeat="grading in ctrl.product.grades | orderBy:'date':true">
+                        <div class="">
+                            <span>Grade: {{grading.grade}} Score: {{grading.score}} 
+                                Date: {{grading.date | date : 'd MMMM yyyy' }}</span>
+                        </div>
+                    </div>
+                    <br>
+                    <div>
+                        <button type="button" class="btn btn-primary" ng-click="ctrl.modalGradeForm()">Add Grade</button> 
+                    </div>                   
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12 col-md-4">
+        <!--<h5>Map</h5>-->
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+              <h2 class="panel-title">Location map</h2>
+            </div>
+            <div class="panel-body">
+              <img src="http://maps.googleapis.com/maps/api/staticmap?center={{ ctrl.product.address.coord[1] }},{{ ctrl.product.address.coord[0] }}&amp;zoom=17&amp;size=400x350&amp;sensor=false&amp;markers={{ ctrl.product.address.coord[1] }},{{ ctrl.product.address.coord[0] }}&amp;scale=2" class="img-responsive img-rounded">
+              <br>
+              <p>Longitude: {{ctrl.product.address.coord[0]}}  Latitude: {{ctrl.product.address.coord[1]}} </p>
+            </div>
+          </div>
+    </div>
+
+    <!--<div class="row">
+        <div class="col-xs-12 col-md-9">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h2 class="panel-title">Address</h2>
+                </div>
+                <div class="panel-body">
+                    <p>Building: {{ctrl.product.address.building}}</p>
+                    <p>Street: {{ctrl.product.address.street}}</p>
+                    <p>Zipcode: {{ctrl.product.address.zipcode}}</p>
+                    <p>Borough: {{ctrl.product.borough}}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-md-3">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 col-md-9">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h2 class="panel-title">Grading</h2>
+                </div>
+                <div class="panel-body">
+                    <div ng-repeat="grading in ctrl.product.grades | orderBy:'date':true">
+                        <div class="">
+                            <span>Grade: {{grading.grade}} Score: {{grading.score}} 
+                                Date: {{grading.date | date : 'd MMMM yyyy' }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>-->
+
+</div>
