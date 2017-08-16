@@ -1,2 +1,3 @@
 # restaurants-mongodb
-Practice MongoDB data retrieval in this Restaurant Management web app.
+MongoDB data retrieval in this Restaurant Management web app.
+This is a practice app in the NUS Full Stack Foundation course.
